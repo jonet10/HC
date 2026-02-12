@@ -1,0 +1,171 @@
+openapi: 3.0.3
+info:
+  title: HaitiConnect API
+  version: 1.1.0
+  description: API REST multi-ecole pour paiements et bulletins scolaires avec notifications WhatsApp.
+servers:
+  - url: http://localhost:4000/api/v1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string }
+    GradeRequest:
+      type: object
+      required: [studentId, subject, score, coefficient, period]
+      properties:
+        studentId: { type: string }
+        professorId: { type: string }
+        subject: { type: string }
+        score: { type: number, minimum: 0, maximum: 100 }
+        coefficient: { type: number, minimum: 1, maximum: 20 }
+        period: { type: string }
+    BulletinGenerateRequest:
+      type: object
+      required: [studentId, period]
+      properties:
+        studentId: { type: string }
+        period: { type: string }
+security:
+  - bearerAuth: []
+paths:
+  /auth/register:
+    post:
+      summary: Creer un utilisateur
+      security: []
+      responses:
+        "201": { description: Utilisateur cree }
+  /auth/login:
+    post:
+      summary: Authentifier un utilisateur
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200": { description: JWT retourne }
+  /payments:
+    post:
+      summary: Enregistrer un paiement scolaire
+      responses:
+        "201": { description: Paiement enregistre }
+    get:
+      summary: Lister les paiements
+      responses:
+        "200": { description: Liste des paiements }
+  /reports/daily:
+    get:
+      summary: Rapport financier journalier
+      responses:
+        "200": { description: Rapport quotidien }
+  /reports/financial-summary:
+    get:
+      summary: Resume financier global
+      responses:
+        "200": { description: Resume financier }
+  /grades:
+    post:
+      summary: Creer une note (professeur/direction)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GradeRequest"
+      responses:
+        "201": { description: Note creee }
+    get:
+      summary: Lister les notes
+      responses:
+        "200": { description: Liste des notes }
+  /grades/{id}:
+    get:
+      summary: Recuperer une note
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Detail de la note }
+    put:
+      summary: Modifier une note
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GradeRequest"
+      responses:
+        "200": { description: Note modifiee }
+    delete:
+      summary: Supprimer une note
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Note supprimee }
+  /bulletins:
+    get:
+      summary: Lister les bulletins (parents/eleves voient seulement les bulletins envoyes)
+      responses:
+        "200": { description: Liste des bulletins }
+  /bulletins/generate:
+    post:
+      summary: Generer un bulletin PDF (direction)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BulletinGenerateRequest"
+      responses:
+        "201": { description: Bulletin prepare }
+  /bulletins/{id}:
+    get:
+      summary: Recuperer un bulletin
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Detail bulletin }
+  /bulletins/{id}/export:
+    get:
+      summary: Exporter le PDF d'un bulletin
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Fichier PDF }
+  /bulletins/{id}/send-whatsapp:
+    post:
+      summary: Envoyer le bulletin final via WhatsApp (direction)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Bulletin envoye }

@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: haiticonnect-api
+    runtime: node
+    plan: free
+    region: ohio
+    rootDir: .
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_EXPIRES_IN
+        value: 1d
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_WHATSAPP_FROM
+        sync: false
+      - key: DIRECTOR_WHATSAPP
+        sync: false
+      - key: PUBLIC_BASE_URL
+        sync: false
