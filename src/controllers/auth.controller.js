@@ -18,6 +18,10 @@ async function register(req, res, next) {
   try {
     const { schoolId, firstName, lastName, email, password, role, phone, whatsappNumber } = req.body;
 
+    if (role === "DIRECTOR" && req.user?.role !== "SUPER_ADMIN") {
+      return res.status(403).json({ message: "Only SUPER_ADMIN can register a DIRECTOR." });
+    }
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({ message: "Email already in use." });

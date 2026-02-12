@@ -18,6 +18,14 @@ services:
         sync: false
       - key: JWT_SECRET
         sync: false
+      - key: SUPER_ADMIN_EMAIL
+        sync: false
+      - key: SUPER_ADMIN_PASSWORD
+        sync: false
+      - key: SUPER_ADMIN_FIRST_NAME
+        sync: false
+      - key: SUPER_ADMIN_LAST_NAME
+        sync: false
       - key: TWILIO_ACCOUNT_SID
         sync: false
       - key: TWILIO_AUTH_TOKEN

@@ -31,6 +31,10 @@ Ce guide deploie HaitiConnect sur:
 
 - `MONGO_URI`
 - `JWT_SECRET`
+- `SUPER_ADMIN_EMAIL`
+- `SUPER_ADMIN_PASSWORD`
+- `SUPER_ADMIN_FIRST_NAME` (optionnel)
+- `SUPER_ADMIN_LAST_NAME` (optionnel)
 - `TWILIO_ACCOUNT_SID` (si WhatsApp actif)
 - `TWILIO_AUTH_TOKEN` (si WhatsApp actif)
 - `TWILIO_WHATSAPP_FROM` (ex: `whatsapp:+14155238886`)

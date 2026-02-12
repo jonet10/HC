@@ -9,6 +9,7 @@ Backend SaaS multi-ecole pour la gestion financiere et administrative, avec un p
 - Roles et permissions:
   - `SUPER_ADMIN`
   - `DIRECTOR`
+  - `TEACHER`
   - `CASHIER`
   - `PARENT`
   - `STUDENT`
@@ -100,6 +101,8 @@ npm install
 2. Renseigner les variables:
    - `MONGO_URI`
    - `JWT_SECRET`
+   - `SUPER_ADMIN_EMAIL`
+   - `SUPER_ADMIN_PASSWORD`
    - `TWILIO_ACCOUNT_SID`
    - `TWILIO_AUTH_TOKEN`
    - `TWILIO_WHATSAPP_FROM`
@@ -126,7 +129,7 @@ Serveur: `http://localhost:4000`
 
 ## Endpoints principaux (prefix: `/api/v1`)
 
-- `POST /auth/register`
+- `POST /auth/register` (protege: token SUPER_ADMIN requis)
 - `POST /auth/login`
 - `GET/POST /users`
 - `GET/POST /students`
@@ -143,6 +146,11 @@ Serveur: `http://localhost:4000`
 - `GET /bulletins/:id`
 - `GET /bulletins/:id/export`
 - `POST /bulletins/:id/send-whatsapp`
+
+## Securite comptes
+
+- Au demarrage, un compte `SUPER_ADMIN` est pre-enregistre automatiquement si absent (via variables `SUPER_ADMIN_*`).
+- Seul `SUPER_ADMIN` peut creer un compte `DIRECTOR`.
 
 ## Extensibilite (modules futurs)
 

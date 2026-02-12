@@ -39,10 +39,10 @@ security:
 paths:
   /auth/register:
     post:
-      summary: Creer un utilisateur
-      security: []
+      summary: Creer un utilisateur (SUPER_ADMIN uniquement)
       responses:
         "201": { description: Utilisateur cree }
+        "403": { description: Interdit }
   /auth/login:
     post:
       summary: Authentifier un utilisateur

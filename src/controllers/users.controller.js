@@ -3,6 +3,10 @@ const { getSchoolFilter, ensureSameSchool } = require("../middlewares/schoolScop
 
 async function createUser(req, res, next) {
   try {
+    if (req.body.role === "DIRECTOR" && req.user.role !== "SUPER_ADMIN") {
+      return res.status(403).json({ message: "Only SUPER_ADMIN can create a DIRECTOR account." });
+    }
+
     if (req.body.schoolId && !ensureSameSchool(req.body.schoolId, req)) {
       return res.status(403).json({ message: "Cannot create user outside your school." });
     }
