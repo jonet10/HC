@@ -117,6 +117,7 @@ Serveur: `http://localhost:4000`
 
 - Swagger UI: `http://localhost:4000/api/docs`
 - Health check: `GET /health`
+- Interface admin web: `http://localhost:4000/`
 
 ## Deploiement gratuit
 

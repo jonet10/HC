@@ -16,14 +16,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use("/public", express.static(path.join(process.cwd(), "storage")));
+app.use(express.static(path.join(__dirname, "web")));
 
 app.get("/", (_req, res) => {
-  res.json({
-    status: "ok",
-    service: "HaitiConnect API",
-    docs: "/api/docs",
-    health: "/health",
-  });
+  res.sendFile(path.join(__dirname, "web", "index.html"));
 });
 
 app.get("/health", (_req, res) => {

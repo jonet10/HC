@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HaitiConnect Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+
+    <main class="layout">
+      <section class="brand-panel">
+        <p class="eyebrow">HaitiConnect</p>
+        <h1>Plateforme de gestion scolaire</h1>
+        <p class="lead">
+          Connectez-vous en tant qu'admin/direction pour visualiser les paiements, notes et bulletins.
+        </p>
+        <div class="links">
+          <a href="/api/docs" target="_blank" rel="noreferrer">API Docs</a>
+          <a href="/health" target="_blank" rel="noreferrer">Health</a>
+        </div>
+      </section>
+
+      <section class="card login-card" id="loginView">
+        <h2>Connexion Admin</h2>
+        <p class="subtitle">Role recommande: DIRECTOR ou SUPER_ADMIN</p>
+        <form id="loginForm">
+          <label>Email</label>
+          <input id="email" type="email" required placeholder="directeur@haiticonnect.ht" />
+          <label>Mot de passe</label>
+          <input id="password" type="password" required placeholder="********" />
+          <button type="submit">Se connecter</button>
+        </form>
+        <p id="loginError" class="error"></p>
+      </section>
+
+      <section class="dashboard hidden" id="dashboardView">
+        <header class="dash-header card">
+          <div>
+            <p class="eyebrow">Session</p>
+            <h2 id="welcomeText">Bienvenue</h2>
+          </div>
+          <button id="logoutBtn" class="secondary">Deconnexion</button>
+        </header>
+
+        <div class="metrics">
+          <article class="card">
+            <p class="metric-label">Frais attendus</p>
+            <p class="metric-value" id="tuitionExpected">-</p>
+          </article>
+          <article class="card">
+            <p class="metric-label">Total paye</p>
+            <p class="metric-value" id="totalPaid">-</p>
+          </article>
+          <article class="card">
+            <p class="metric-label">Total du</p>
+            <p class="metric-value" id="totalDue">-</p>
+          </article>
+          <article class="card">
+            <p class="metric-label">Taux de paiement</p>
+            <p class="metric-value" id="paymentRate">-</p>
+          </article>
+        </div>
+
+        <div class="tables">
+          <article class="card">
+            <div class="table-header">
+              <h3>Eleves</h3>
+              <span id="studentsCount">0</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Nom</th>
+                    <th>Classe</th>
+                    <th>Frais</th>
+                  </tr>
+                </thead>
+                <tbody id="studentsBody"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="table-header">
+              <h3>Paiements recents</h3>
+              <span id="paymentsCount">0</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Recu</th>
+                    <th>Eleve</th>
+                    <th>Montant</th>
+                    <th>Methode</th>
+                  </tr>
+                </thead>
+                <tbody id="paymentsBody"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="table-header">
+              <h3>Notes recentes</h3>
+              <span id="gradesCount">0</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Eleve</th>
+                    <th>Matiere</th>
+                    <th>Note</th>
+                    <th>Periode</th>
+                  </tr>
+                </thead>
+                <tbody id="gradesBody"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="table-header">
+              <h3>Bulletins</h3>
+              <span id="bulletinsCount">0</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Eleve</th>
+                    <th>Periode</th>
+                    <th>Statut</th>
+                    <th>PDF</th>
+                  </tr>
+                </thead>
+                <tbody id="bulletinsBody"></tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
