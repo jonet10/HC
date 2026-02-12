@@ -39,6 +39,15 @@ Ce guide deploie HaitiConnect sur:
 
 `JWT_EXPIRES_IN=1d` et `NODE_ENV=production` sont deja preconfigures.
 
+### Import en bloc depuis un fichier `.env`
+
+Tu peux importer rapidement toutes les variables:
+
+1. Ouvre `render.env.example` dans le projet.
+2. Remplace les valeurs (`MONGO_URI`, `JWT_SECRET`, etc.).
+3. Sur Render -> `Environment` -> option `Add from .env` (ou collage multi-lignes).
+4. Colle tout le contenu du fichier, puis sauvegarde.
+
 ## 4) Verifier apres deploiement
 
 - Health: `GET https://<ton-service>.onrender.com/health`

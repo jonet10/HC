@@ -17,6 +17,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use("/public", express.static(path.join(process.cwd(), "storage")));
 
+app.get("/", (_req, res) => {
+  res.json({
+    status: "ok",
+    service: "HaitiConnect API",
+    docs: "/api/docs",
+    health: "/health",
+  });
+});
+
 app.get("/health", (_req, res) => {
   res.json({
     status: "ok",
